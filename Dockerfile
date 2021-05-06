@@ -13,13 +13,13 @@ ENV ANT_HOME=/opt/ant
 # Update installed software
 #RUN apt upgrade
 
-
-# Install curl and unzip
+# Install wget and unzip and ruby
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        curl \
+        wget \
         unzip \
 		libfreetype6 \
 		fontconfig \
+        ruby-full \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Installing SenchaCmd
