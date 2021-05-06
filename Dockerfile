@@ -42,5 +42,3 @@ RUN wget --no-check-certificate --no-cookies http://cdn.sencha.com/cmd/7.3.0.19/
 WORKDIR /app
 
 ENV PATH="/opt/ant/bin:/opt/Sencha/Cmd:${PATH}"
-
-ENTRYPOINT [ "/opt/Sencha/Cmd/sencha" ]
