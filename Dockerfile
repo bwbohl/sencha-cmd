@@ -32,12 +32,12 @@ RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/
     && unlink apache-ant-${ANT_VERSION}-bin.tar.gz.sha512    
 
 # Installing SenchaCmd
-RUN curl --silent http://cdn.sencha.com/cmd/7.3.0.19/no-jre/SenchaCmd-7.3.0.19-linux-amd64.sh.zip -o /tmp/sencha.zip && \
-    unzip /tmp/sencha.zip -d /tmp  && \
-    unlink /tmp/sencha.zip  && \
-    chmod o+x /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh && \
-    /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh -q -dir /opt/Sencha/Cmd/7.3.0.19 && \
-    unlink /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh
+RUN wget --no-check-certificate --no-cookies http://cdn.sencha.com/cmd/7.3.0.19/no-jre/SenchaCmd-7.3.0.19-linux-amd64.sh.zip \
+    && unzip SenchaCmd-7.3.0.19-linux-amd64.sh.zip -d /tmp \
+    && unlink SenchaCmd-7.3.0.19-linux-amd64.sh.zip \
+    && chmod o+x /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh \
+    && /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/7.3.0.19 \
+    && unlink /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh
 
 WORKDIR /app
 
