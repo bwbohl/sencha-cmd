@@ -4,6 +4,9 @@ FROM openjdk:8-jre-slim
 # LABEL about this image
 LABEL maintainer="bwbohl@gmail.com"
 
+ENV ANT_VERSION=1.10.10
+ENV ANT_HOME=/opt/ant
+
 # Update software repository
 #RUN apt update
 
