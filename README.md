@@ -2,7 +2,7 @@
 
 ## Basic Information
 
-This dockerfile provides a build-environment for Sencha Apps. It is based on the `openjdk:8-jre-slim` Dockerimage and adds the following components:
+This dockerfile provides a build-environment for Sencha Apps. It is based on the openjdk:8-jre-slim Dockerimage[https://hub.docker.com/layers/openjdk/library/openjdk/8-jre-slim/images/sha256-21288a1b9869ffc48d723a22a2091cd97567d70f459f1226630293190640604a?context=explore](https://hub.docker.com/layers/openjdk/library/openjdk/8-jre-slim/images/sha256-21288a1b9869ffc48d723a22a2091cd97567d70f459f1226630293190640604a?context=explore) and adds the following components:
 
 * wget
 * unzip
@@ -12,7 +12,12 @@ This dockerfile provides a build-environment for Sencha Apps. It is based on the
 * Apache Ant 1.10.10
 * SenchaCmd 7.3.0.19
 
-## building
+## Container Registry
+
+This image is being built automatically through GitHub Actions and published in the GitHub Container Registry. This happens regularly every day and on pushed tags with a semantic version number (cf. [https://semver.org](https://semver.org)). If a pull-request is made against rhe main branch of this repository, it will be built but not published, though. Published images are available at [https://github.com/bwbohl/sencha-cmd/pkgs/container/sencha-cmd](https://github.com/bwbohl/sencha-cmd/pkgs/container/sencha-cmd).
+
+
+## Building locally
 
 You can clone or download this repository and then build and run the Dockerimage on your local machine. Please make sure Docker is installed on your system.
 
