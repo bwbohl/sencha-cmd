@@ -2,7 +2,7 @@
 
 ## Basic Information
 
-This dockerfile provides a build-environment for Sencha Apps. It is based on the openjdk:8-jre-slim Dockerimage[https://hub.docker.com/layers/openjdk/library/openjdk/8-jre-slim/images/sha256-21288a1b9869ffc48d723a22a2091cd97567d70f459f1226630293190640604a?context=explore](https://hub.docker.com/layers/openjdk/library/openjdk/8-jre-slim/images/sha256-21288a1b9869ffc48d723a22a2091cd97567d70f459f1226630293190640604a?context=explore) and adds the following components:
+This dockerfile provides a build-environment for Sencha Apps. It is based on the [openjdk:8-jre-slim Dockerimage](https://hub.docker.com/layers/openjdk/library/openjdk/8-jre-slim/images/sha256-21288a1b9869ffc48d723a22a2091cd97567d70f459f1226630293190640604a?context=explore) and adds the following components:
 
 * wget
 * unzip
