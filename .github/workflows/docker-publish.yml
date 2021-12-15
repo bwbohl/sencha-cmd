@@ -78,7 +78,7 @@ jobs:
         with:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            ${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}/${{ DOCKERHUB_IMAGE_NAME }}
+            ${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }}
           flavor: |
             latest=${{ github.ref == 'refs/heads/main' }}
 
