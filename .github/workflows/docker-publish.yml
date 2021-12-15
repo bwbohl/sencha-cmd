@@ -60,6 +60,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Login against DockerHub registry except on PR
+      - name: Log in to DockerHub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}
+          password: ${{ secrets.BWBOHL_DOCKERHUB_TOKEN }}
+
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
