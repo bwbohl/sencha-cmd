@@ -4,8 +4,10 @@ FROM openjdk:8-jre-slim
 # LABEL about this image
 LABEL maintainer="bwbohl@gmail.com"
 
-ENV ANT_VERSION=1.10.10
+ENV ANT_VERSION=1.10.12
 ENV ANT_HOME=/opt/ant
+
+ENV SENCHACMD_VERSION=7.5.1.20
 
 # Update software repository
 #RUN apt update
@@ -29,15 +31,16 @@ RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/
     && tar -zvxf apache-ant-${ANT_VERSION}-bin.tar.gz -C /opt/ \
     && ln -s /opt/apache-ant-${ANT_VERSION} /opt/ant \
     && unlink apache-ant-${ANT_VERSION}-bin.tar.gz \
-    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz.sha512    
+    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz.sha512
 
 # Installing SenchaCmd
-RUN wget --no-check-certificate --no-cookies http://cdn.sencha.com/cmd/7.3.0.19/no-jre/SenchaCmd-7.3.0.19-linux-amd64.sh.zip \
-    && unzip SenchaCmd-7.3.0.19-linux-amd64.sh.zip -d /tmp \
-    && unlink SenchaCmd-7.3.0.19-linux-amd64.sh.zip \
-    && chmod o+x /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh \
-    && /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/7.3.0.19 \
-    && unlink /tmp/SenchaCmd-7.3.0.19-linux-amd64.sh
+
+RUN wget --no-check-certificate --no-cookies http://cdn.sencha.com/cmd/${SENCHACMD_VERSION}/no-jre/SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip \
+    && unzip SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip -d /tmp \
+    && unlink SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip \
+    && chmod o+x /tmp/SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh \
+    && /tmp/SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/${SENCHACMD_VERSION} \
+    && unlink /tmp/SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh
 
 WORKDIR /app
 
