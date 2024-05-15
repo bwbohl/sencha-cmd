@@ -91,7 +91,7 @@ jobs:
 
       - id: set-env-push
         run: |
-          echo PUSH=$([[ cut -d/ -f2 $GITHUB_REF != pull ]] &&  echo 'true' || echo 'false' )  >> $GITHUB_ENV
+          echo PUSH=$([[ `echo "refs/pull/1" | cut -d/ -f2` != 'pull' ]] && echo "true" || echo "false")  >> $GITHUB_ENV
       - run: echo ${{ env.PUSH }}
       - run: echo ${{ env.PUSH == 'true' }}
       # Build and push Docker image with Buildx (don't push on PR)
