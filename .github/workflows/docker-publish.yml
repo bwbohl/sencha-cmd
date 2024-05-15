@@ -67,6 +67,7 @@ jobs:
 
       # Login against DockerHub registry except on PR
       - name: Log in to DockerHub
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20
         with:
           username: ${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}
@@ -75,6 +76,7 @@ jobs:
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
+        if: github.event_name != 'pull_request'
         id: meta
         uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81
         with:
@@ -87,6 +89,7 @@ jobs:
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
+        if: github.event_name != 'pull_request'
         id: build-and-push
         uses: docker/build-push-action@2cdde995de11925a030ce8070c3d77a52ffcf1c0
         with:
