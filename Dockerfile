@@ -32,13 +32,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #    && sudo apt install -y nodejs
 
 # Download and extract Apache Ant to opt folder
-#RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
-#    && wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz.sha512 \
-#    && echo "$(cat apache-ant-${ANT_VERSION}-bin.tar.gz.sha512) apache-ant-${ANT_VERSION}-bin.tar.gz" | sha512sum -c \
-#    && tar -zvxf apache-ant-${ANT_VERSION}-bin.tar.gz -C /opt/ \
-#    && ln -s /opt/apache-ant-${ANT_VERSION} /opt/ant \
-#    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz \
-#    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz.sha512
+RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
+    && wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz.sha512 \
+    && echo "$(cat apache-ant-${ANT_VERSION}-bin.tar.gz.sha512) apache-ant-${ANT_VERSION}-bin.tar.gz" | sha512sum -c \
+    && tar -zvxf apache-ant-${ANT_VERSION}-bin.tar.gz -C /opt/ \
+    && ln -s /opt/apache-ant-${ANT_VERSION} /opt/ant \
+    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz \
+    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz.sha512
 
 # Installing SenchaCmd Community Edition
 
