@@ -1,5 +1,5 @@
 # Download base image
-FROM openjdk:8-jre-slim
+FROM eclipse-temurin:8
 
 # LABEL about this image
 LABEL maintainer="bwbohl@gmail.com"
