@@ -46,24 +46,18 @@ RUN curl --silent http://cdn.sencha.com/cmd/7.0.0.40/no-jre/SenchaCmd-7.0.0.40-l
 
 # Add ExtJS versions
 ## add 5.1.1-gpl
-RUN cd /opt/Sencha \
-    && pwd \
-    && wget -c http://cdn.sencha.com/ext/gpl/ext-5.1.1-gpl.zip \
-    && unzip ext-5.1.1-gpl.zip \
+RUN wget -q --show-progress --progress=bar:force:noscroll -P /opt/Sencha http://cdn.sencha.com/ext/gpl/ext-5.1.1-gpl.zip \
+    && unzip -q /opt/Sencha/ext-5.1.1-gpl.zip \
     && unlink /opt/Sencha/ext-5.1.1-gpl.zip
 
 ## add 6.2.0-gpl
-RUN cd /opt/Sencha \
-    && pwd \
-    && wget -c http://cdn.sencha.com/ext/gpl/ext-6.2.0-gpl.zip \
-    && unzip ext-6.2.0-gpl.zip \
+RUN wget -q --show-progress --progress=bar:force:noscroll -P /opt/Sencha http://cdn.sencha.com/ext/gpl/ext-6.2.0-gpl.zip \
+    && unzip -q /opt/Sencha/ext-6.2.0-gpl.zip \
     && unlink /opt/Sencha/ext-6.2.0-gpl.zip
 
 ## add 7.0.0-gpl
-RUN cd /opt/Sencha \
-    && pwd \
-    && wget -c http://cdn.sencha.com/ext/gpl/ext-7.0.0-gpl.zip \
-    && unzip ext-7.0.0-gpl.zip \
+RUN wget -q --show-progress --progress=bar:force:noscroll -P /opt/Sencha http://cdn.sencha.com/ext/gpl/ext-7.0.0-gpl.zip \
+    && unzip -q /opt/Sencha/ext-7.0.0-gpl.zip \
     && unlink /opt/Sencha/ext-7.0.0-gpl.zip
 
 # TODO increase vmmemory for build
