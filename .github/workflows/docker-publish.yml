@@ -88,6 +88,7 @@ jobs:
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
+        if: github.event_name != 'pull_request'
         id: meta
         uses: docker/metadata-action@369eb591f429131d6889c46b94e711f089e6ca96
         with:
