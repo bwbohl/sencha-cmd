@@ -44,21 +44,22 @@ RUN curl --silent http://cdn.sencha.com/cmd/7.0.0.40/no-jre/SenchaCmd-7.0.0.40-l
     /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/7.0.0.40 && \
     unlink /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh
 
-# add 5.1.1-gpl
+# Add ExtJS versions
+## add 5.1.1-gpl
 RUN cd /opt/Sencha \
     && pwd \
     && wget -c http://cdn.sencha.com/ext/gpl/ext-5.1.1-gpl.zip \
     && unzip ext-5.1.1-gpl.zip \
     && unlink /opt/Sencha/ext-5.1.1-gpl.zip
 
-# add 6.2.0-gpl
+## add 6.2.0-gpl
 RUN cd /opt/Sencha \
     && pwd \
     && wget -c http://cdn.sencha.com/ext/gpl/ext-6.2.0-gpl.zip \
     && unzip ext-6.2.0-gpl.zip \
     && unlink /opt/Sencha/ext-6.2.0-gpl.zip
 
-# add 7.0.0-gpl
+## add 7.0.0-gpl
 RUN cd /opt/Sencha \
     && pwd \
     && wget -c http://cdn.sencha.com/ext/gpl/ext-7.0.0-gpl.zip \
