@@ -4,10 +4,10 @@ FROM ruby:2.7.4-bullseye
 # LABEL about this image
 LABEL org.opencontainers.image.title="SenchaCmd"
 LABEL org.opencontainers.image.description="Dockerimage for building ExtJS apps with SenchaCmd"
-LABEL org.opencontainers.image.revision="1.0.0"
+LABEL org.opencontainers.image.revision="2.0.0"
 LABEL org.opencontainers.image.licenses="GNU GPLv3"
 LABEL org.opencontainers.image.authors="Benjamin W. Bohl https://github.com/bwbohl"
-LABEL org.opencontainers.image.ref.name="bwbohl_sencha-cmd_1.0.0"
+LABEL org.opencontainers.image.ref.name="bwbohl_sencha-cmd_2.0.0"
 LABEL org.opencontainers.image.base.name="ruby:2.7.4-bullseye"
 LABEL org.opencontainers.image.documentation="https://github.com/bwbohl/sencha-cmd"
 LABEL org.opencontainers.image.source="https://github.com/bwbohl/sencha-cmd"
