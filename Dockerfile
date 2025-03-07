@@ -17,7 +17,8 @@ RUN apt-get update -y -q
 # Install JRE8 from adoptium
 
 ## Ensure necessary packages are present
-RUN apt-get install -y sudo wget apt-transport-https gpg
+### apparently not necessary as already present in baseimage
+###RUN apt-get install -y sudo wget apt-transport-https gpg
 
 ## Download the Eclipse Adoptium GPG key
 RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null
@@ -37,17 +38,6 @@ RUN apt-get install -y --no-install-recommends \
 # Cleanup after apt-get installs
 RUN rm -rf /var/lib/apt/lists/*
 
-
-# Install wget and unzip and ruby
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        curl \
-        sudo \
-        wget \
-        unzip \
-		libfreetype6 \
-		fontconfig \
-        ruby-full \
-	&& rm -rf /var/lib/apt/lists/*
 
 # Install nodejs and npm
 #RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
