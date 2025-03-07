@@ -46,7 +46,7 @@ jobs:
     steps:
       # Set env.PUSH for tags triggering the workflow
       - name: Set env.PUSH
-        if: gstartsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v')
         run: echo "PUSH=true" >> $GITHUB_ENV
     
       - name: Checkout repository
