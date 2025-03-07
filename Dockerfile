@@ -38,7 +38,7 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # download senchaCmd
 RUN wget -q --show-progress --progress=bar:force:noscroll -P /tmp http://cdn.sencha.com/cmd/7.0.0.40/no-jre/SenchaCmd-7.0.0.40-linux-amd64.sh.zip && \
-    unzip /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh.zip -d /tmp  && \
+    unzip -q /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh.zip -d /tmp  && \
     unlink /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh.zip  && \
     chmod o+x /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh && \
     /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/7.0.0.40 && \
