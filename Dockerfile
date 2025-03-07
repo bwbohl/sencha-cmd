@@ -9,10 +9,30 @@ ARG ANT_HOME=/opt/ant
 #ARG SENCHACMD_VERSION=7.6.0.33
 
 # Update software repository
-#RUN apt update
+RUN apt-get update -y -q
 
 # Update installed software
 #RUN apt upgrade
+
+# Install JRE8 from adoptium
+
+## Ensure necessary packages are present
+RUN apt-get install -y sudo wget apt-transport-https gpg
+
+## Download the Eclipse Adoptium GPG key
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null
+
+## Configure the Eclipse Adoptium apt repository
+RUN echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
+
+## Install JRE8
+### TODO test --no-install-recommends
+RUN apt-get update -y -q \
+    && apt-get -y install temurin-8-jre
+
+# Cleanup after apt-get installs
+RUN rm -rf /var/lib/apt/lists/*
+
 
 # Install wget and unzip and ruby
 RUN apt-get update && apt-get install -y --no-install-recommends \
