@@ -1,74 +1,74 @@
 # Download base image
-FROM eclipse-temurin:8
+FROM ruby:2.7.4-bullseye
 
 # LABEL about this image
-LABEL maintainer="bwbohl@gmail.com"
+LABEL org.opencontainers.image.title="SenchaCmd"
+LABEL org.opencontainers.image.description="Dockerimage for building ExtJS apps with SenchaCmd"
+LABEL org.opencontainers.image.revision="1.0.0"
+LABEL org.opencontainers.image.licenses="GNU GPLv3"
+LABEL org.opencontainers.image.authors="Benjamin W. Bohl https://github.com/bwbohl"
+LABEL org.opencontainers.image.ref.name="bwbohl_sencha-cmd_1.0.0"
+LABEL org.opencontainers.image.base.name="ruby:2.7.4-bullseye"
+LABEL org.opencontainers.image.documentation="https://github.com/bwbohl/sencha-cmd"
+LABEL org.opencontainers.image.source="https://github.com/bwbohl/sencha-cmd"
+LABEL org.opencontainers.image.url="https://github.com/bwbohl/sencha-cmd"
+LABEL org.opencontainers.image.version="7.0.0.40-CE"
 
-ARG ANT_VERSION=1.10.12
-ARG ANT_HOME=/opt/ant
-#ARG SENCHACMD_VERSION=7.6.0.33
 
 # Update software repository
-#RUN apt update
+RUN apt-get update -y -q
 
 # Update installed software
 #RUN apt upgrade
 
-# Install wget and unzip and ruby
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        curl \
-        sudo \
-        wget \
-        unzip \
-		libfreetype6 \
-		fontconfig \
-        ruby-full \
-	&& rm -rf /var/lib/apt/lists/*
+# Install JRE8 from adoptium
 
-# Install nodejs and npm
-#RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
-#    && sudo apt update \
-#    && sudo apt update \
-#    && sudo apt install -y nodejs
+## Ensure necessary packages are present
+### apparently not necessary as already present in baseimage
+###RUN apt-get install -y sudo wget apt-transport-https gpg
 
-# Download and extract Apache Ant to opt folder
-RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
-    && wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz.sha512 \
-    && echo "$(cat apache-ant-${ANT_VERSION}-bin.tar.gz.sha512) apache-ant-${ANT_VERSION}-bin.tar.gz" | sha512sum -c \
-    && tar -zvxf apache-ant-${ANT_VERSION}-bin.tar.gz -C /opt/ \
-    && ln -s /opt/apache-ant-${ANT_VERSION} /opt/ant \
-    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz \
-    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz.sha512
+## Download the Eclipse Adoptium GPG key
+RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null
+
+## Configure the Eclipse Adoptium apt repository
+RUN echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
+
+## Install JRE8
+### TODO test --no-install-recommends
+RUN apt-get update -y -q \
+    && apt-get -y install temurin-8-jre
+
+# Install ant
+RUN apt-get install -y --no-install-recommends \
+    ant
+
+# Cleanup after apt-get installs
+RUN rm -rf /var/lib/apt/lists/*
 
 # Installing SenchaCmd Community Edition
 
 # download senchaCmd
-RUN curl --silent http://cdn.sencha.com/cmd/7.0.0.40/no-jre/SenchaCmd-7.0.0.40-linux-amd64.sh.zip -o /tmp/senchaCmd.zip && \
-    unzip /tmp/senchaCmd.zip -d /tmp  && \
-    unlink /tmp/senchaCmd.zip  && \
+RUN wget -q --show-progress --progress=bar:force:noscroll -P /tmp http://cdn.sencha.com/cmd/7.0.0.40/no-jre/SenchaCmd-7.0.0.40-linux-amd64.sh.zip && \
+    unzip -q /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh.zip -d /tmp  && \
+    unlink /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh.zip  && \
     chmod o+x /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh && \
     /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/7.0.0.40 && \
     unlink /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh
 
-# add 5.1.1-gpl
-RUN cd /opt/Sencha \
-    && pwd \
-    && wget -c http://cdn.sencha.com/ext/gpl/ext-5.1.1-gpl.zip \
-    && unzip ext-5.1.1-gpl.zip \
+# Add ExtJS versions
+## add 5.1.1-gpl
+RUN wget -q --show-progress --progress=bar:force:noscroll -P /opt/Sencha http://cdn.sencha.com/ext/gpl/ext-5.1.1-gpl.zip \
+    && unzip -q /opt/Sencha/ext-5.1.1-gpl.zip \
     && unlink /opt/Sencha/ext-5.1.1-gpl.zip
 
-# add 6.2.0-gpl
-RUN cd /opt/Sencha \
-    && pwd \
-    && wget -c http://cdn.sencha.com/ext/gpl/ext-6.2.0-gpl.zip \
-    && unzip ext-6.2.0-gpl.zip \
+## add 6.2.0-gpl
+RUN wget -q --show-progress --progress=bar:force:noscroll -P /opt/Sencha http://cdn.sencha.com/ext/gpl/ext-6.2.0-gpl.zip \
+    && unzip -q /opt/Sencha/ext-6.2.0-gpl.zip \
     && unlink /opt/Sencha/ext-6.2.0-gpl.zip
 
-# add 7.0.0-gpl
-RUN cd /opt/Sencha \
-    && pwd \
-    && wget -c http://cdn.sencha.com/ext/gpl/ext-7.0.0-gpl.zip \
-    && unzip ext-7.0.0-gpl.zip \
+## add 7.0.0-gpl
+RUN wget -q --show-progress --progress=bar:force:noscroll -P /opt/Sencha http://cdn.sencha.com/ext/gpl/ext-7.0.0-gpl.zip \
+    && unzip -q /opt/Sencha/ext-7.0.0-gpl.zip \
     && unlink /opt/Sencha/ext-7.0.0-gpl.zip
 
 # TODO increase vmmemory for build
@@ -79,13 +79,6 @@ RUN cd /opt/Sencha \
 #RUN file_contents=$(</opt/Sencha/Cmd/7.0.0.40/sencha.vmoptions) \
 #    && echo "${file_contents//E/X}" > /opt/Sencha/Cmd/7.0.0.40/sencha.vmoptions
 
-#RUN wget --no-check-certificate --no-cookies https://cdn.sencha.com/cmd/${SENCHACMD_VERSION}/no-jre/SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip \
-#    && unzip SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip -d /tmp \
-#    && unlink SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip \
-#    && chmod o+x /tmp/SenchaCmd-${SENCHACMD_VERSION}*-linux-amd64.sh \
-#    && /tmp/SenchaCmd-${SENCHACMD_VERSION}*-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/${SENCHACMD_VERSION} \
-#    && unlink /tmp/SenchaCmd-${SENCHACMD_VERSION}*-linux-amd64.sh
+ENTRYPOINT [ "/bin/bash" ]
 
 WORKDIR /app
-
-ENV PATH="/opt/ant/bin:/opt/Sencha/Cmd:${PATH}"
