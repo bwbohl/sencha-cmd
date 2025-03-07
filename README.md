@@ -66,4 +66,4 @@ For more details also refer to the [Sencha Cmd Reference](https://docs.sencha.co
 
 ## License
 
-This work is licensed under the terms of the [MIT License](LICENSE).
+This work is licensed under the terms of the [GNU GPLv3](LICENSE).
