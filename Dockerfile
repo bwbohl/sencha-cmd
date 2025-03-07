@@ -30,6 +30,10 @@ RUN echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION
 RUN apt-get update -y -q \
     && apt-get -y install temurin-8-jre
 
+# Install ant
+RUN apt-get install -y --no-install-recommends \
+    ant
+
 # Cleanup after apt-get installs
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -51,14 +55,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #    && sudo apt update \
 #    && sudo apt install -y nodejs
 
-# Download and extract Apache Ant to opt folder
-RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
-    && wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz.sha512 \
-    && echo "$(cat apache-ant-${ANT_VERSION}-bin.tar.gz.sha512) apache-ant-${ANT_VERSION}-bin.tar.gz" | sha512sum -c \
-    && tar -zvxf apache-ant-${ANT_VERSION}-bin.tar.gz -C /opt/ \
-    && ln -s /opt/apache-ant-${ANT_VERSION} /opt/ant \
-    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz \
-    && unlink apache-ant-${ANT_VERSION}-bin.tar.gz.sha512
 
 # Installing SenchaCmd Community Edition
 
