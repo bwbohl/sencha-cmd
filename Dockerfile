@@ -82,5 +82,3 @@ RUN cd /opt/Sencha \
 #    && echo "${file_contents//E/X}" > /opt/Sencha/Cmd/7.0.0.40/sencha.vmoptions
 
 WORKDIR /app
-
-ENV PATH="/opt/ant/bin:/opt/Sencha/Cmd:${PATH}"
