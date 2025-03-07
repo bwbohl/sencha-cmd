@@ -4,10 +4,6 @@ FROM ruby:2.7.4-bullseye
 # LABEL about this image
 LABEL maintainer="bwbohl@gmail.com"
 
-ARG ANT_VERSION=1.10.12
-ARG ANT_HOME=/opt/ant
-#ARG SENCHACMD_VERSION=7.6.0.33
-
 # Update software repository
 RUN apt-get update -y -q
 
@@ -84,13 +80,6 @@ RUN cd /opt/Sencha \
 
 #RUN file_contents=$(</opt/Sencha/Cmd/7.0.0.40/sencha.vmoptions) \
 #    && echo "${file_contents//E/X}" > /opt/Sencha/Cmd/7.0.0.40/sencha.vmoptions
-
-#RUN wget --no-check-certificate --no-cookies https://cdn.sencha.com/cmd/${SENCHACMD_VERSION}/no-jre/SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip \
-#    && unzip SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip -d /tmp \
-#    && unlink SenchaCmd-${SENCHACMD_VERSION}-linux-amd64.sh.zip \
-#    && chmod o+x /tmp/SenchaCmd-${SENCHACMD_VERSION}*-linux-amd64.sh \
-#    && /tmp/SenchaCmd-${SENCHACMD_VERSION}*-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/${SENCHACMD_VERSION} \
-#    && unlink /tmp/SenchaCmd-${SENCHACMD_VERSION}*-linux-amd64.sh
 
 WORKDIR /app
 
