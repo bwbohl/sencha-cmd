@@ -34,14 +34,6 @@ RUN apt-get install -y --no-install-recommends \
 # Cleanup after apt-get installs
 RUN rm -rf /var/lib/apt/lists/*
 
-
-# Install nodejs and npm
-#RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
-#    && sudo apt update \
-#    && sudo apt update \
-#    && sudo apt install -y nodejs
-
-
 # Installing SenchaCmd Community Edition
 
 # download senchaCmd
