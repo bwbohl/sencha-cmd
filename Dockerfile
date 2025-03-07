@@ -37,9 +37,9 @@ RUN rm -rf /var/lib/apt/lists/*
 # Installing SenchaCmd Community Edition
 
 # download senchaCmd
-RUN curl --silent http://cdn.sencha.com/cmd/7.0.0.40/no-jre/SenchaCmd-7.0.0.40-linux-amd64.sh.zip -o /tmp/senchaCmd.zip && \
-    unzip /tmp/senchaCmd.zip -d /tmp  && \
-    unlink /tmp/senchaCmd.zip  && \
+RUN wget -q --show-progress --progress=bar:force:noscroll -P /tmp http://cdn.sencha.com/cmd/7.0.0.40/no-jre/SenchaCmd-7.0.0.40-linux-amd64.sh.zip && \
+    unzip /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh.zip -d /tmp  && \
+    unlink /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh.zip  && \
     chmod o+x /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh && \
     /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh -Dall=true -q -dir /opt/Sencha/Cmd/7.0.0.40 && \
     unlink /tmp/SenchaCmd-7.0.0.40-linux-amd64.sh
