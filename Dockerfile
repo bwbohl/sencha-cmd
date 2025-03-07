@@ -1,5 +1,5 @@
 # Download base image
-FROM eclipse-temurin:8
+FROM ruby:2.7.4-bullseye
 
 # LABEL about this image
 LABEL maintainer="bwbohl@gmail.com"
