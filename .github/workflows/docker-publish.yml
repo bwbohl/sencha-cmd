@@ -91,16 +91,18 @@ jobs:
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
-        if: github.event_name != 'pull_request'
+        #if: github.event_name != 'pull_request'
         id: meta
         uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804
         with:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
             ${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }}
-          flavor: |
-            latest=${{ github.ref == 'refs/heads/main' }}
+          #flavor: |
+          #  latest=${{ github.ref == 'refs/heads/main' }}
           tags: |
+            type=ref,event=branch
+            type=ref,event=pr
             type=schedule,pattern=nightly
             type=semver,pattern={{raw}}
             type=semver,pattern=v{{major.minor}}
