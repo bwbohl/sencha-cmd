@@ -79,6 +79,6 @@ RUN wget -q --show-progress --progress=bar:force:noscroll -P /opt/Sencha http://
 #RUN file_contents=$(</opt/Sencha/Cmd/7.0.0.40/sencha.vmoptions) \
 #    && echo "${file_contents//E/X}" > /opt/Sencha/Cmd/7.0.0.40/sencha.vmoptions
 
-ENTRYPOINT [ "/bin/bash" ]
+ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
 
 WORKDIR /app
