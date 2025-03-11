@@ -9,6 +9,12 @@ This Docker image provides a build environment for Sencha ExtJS Apps. It is base
 * SenchaCmd Community Edition 7.0.0.40
 * Sencha ExtJS GNU GPLv3 versions 5.1.1, 6.2.0, and 7.0.0 in the directory `opt/Sencha`
 
+## Available tags
+
+The following stable dockerimage tags are available
+* v2.0.0 only support interactive execution of build
+* v2.1.0 now supports headless execution, e.g.,`docker run --rm -it -v $(pwd):/app --name sencha sencha-cmd:local command`
+
 ## Container Registry
 
 This image is being built automatically through GitHub Actions and published on [DockerHub](https://hub.docker.com/r/bwbohl/sencha-cmd) and the [GitHub Container Registry](https://github.com/bwbohl/sencha-cmd/pkgs/container/sencha-cmd) daily and on pushed tags with a semantic version number (cf. [https://semver.org](https://semver.org)). If a pull request is issued against the main branch of this repository, it will be built but not published.
