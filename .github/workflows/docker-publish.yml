@@ -100,6 +100,14 @@ jobs:
             ${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }}
           flavor: |
             latest=${{ github.ref == 'refs/heads/main' }}
+          tags: |
+            type=schedule,pattern=nightly
+            type=semver,pattern={{raw}}
+            type=semver,pattern=v{{major.minor}}
+            type=semver,pattern=v{{major}}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major.minor}}
+            type=semver,pattern={{major}}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
