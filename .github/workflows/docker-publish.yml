@@ -74,7 +74,7 @@ jobs:
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee
+        uses: docker/login-action@c99871dec2022cc055c062a10cc1a1310835ceb4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -83,7 +83,7 @@ jobs:
       # Login against DockerHub registry except on PR
       - name: Log in to DockerHub
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee
+        uses: docker/login-action@c99871dec2022cc055c062a10cc1a1310835ceb4
         with:
           username: ${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}
           password: ${{ secrets.BWBOHL_DOCKERHUB_TOKEN }}
