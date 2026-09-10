@@ -4,16 +4,40 @@ FROM ruby:2.7.4-bullseye
 # LABEL about this image
 LABEL org.opencontainers.image.title="SenchaCmd"
 LABEL org.opencontainers.image.description="Dockerimage for building ExtJS apps with SenchaCmd"
-LABEL org.opencontainers.image.revision="2.0.0"
+LABEL org.opencontainers.image.revision="2.1.1"
 LABEL org.opencontainers.image.licenses="GNU GPLv3"
 LABEL org.opencontainers.image.authors="Benjamin W. Bohl https://github.com/bwbohl"
-LABEL org.opencontainers.image.ref.name="bwbohl_sencha-cmd_2.0.0"
+LABEL org.opencontainers.image.ref.name="bwbohl_sencha-cmd_2.1.1"
 LABEL org.opencontainers.image.base.name="ruby:2.7.4-bullseye"
 LABEL org.opencontainers.image.documentation="https://github.com/bwbohl/sencha-cmd"
 LABEL org.opencontainers.image.source="https://github.com/bwbohl/sencha-cmd"
 LABEL org.opencontainers.image.url="https://github.com/bwbohl/sencha-cmd"
 LABEL org.opencontainers.image.version="7.0.0.40-CE"
 
+
+# Debian 11 (bullseye) left LTS on 2026-08-31 and is being torn down. Two
+# separate failures follow, and both have to be handled here:
+#   1. bullseye-security's Release file is now signed with an expired
+#      Valid-Until, so apt rejects the index and apt-get update exits 100.
+#   2. Worse, the security pool is being deleted while its indexes still
+#      advertise the packages, so apt-get install 404s on .debs that apt was
+#      just told exist (e.g. libcurl4-openssl-dev 7.74.0-1.3+deb11u16).
+# Suppressing the expiry check alone only fixes (1) and leaves builds failing
+# one step later on (2), so the sources are repointed at archive.debian.org,
+# which carries bullseye frozen at the final 11.11 point release with no
+# Valid-Until, and bullseye-security is dropped entirely (it is not archived
+# and never will be). Packages are therefore pinned at the last point release;
+# bullseye is EOL, so no further security updates exist to miss.
+#
+# This is done in the image rather than via `-o` flags on the command line so
+# that it persists as a layer: downstream Dockerfiles that build FROM this
+# image run their own apt-get update/install and hit the identical failures.
+RUN printf '%s\n' \
+      'deb http://archive.debian.org/debian bullseye main' \
+      'deb http://archive.debian.org/debian bullseye-updates main' \
+      > /etc/apt/sources.list \
+ && rm -f /etc/apt/sources.list.d/debian.sources \
+ && echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
 
 # Update software repository
 RUN apt-get update -y -q
