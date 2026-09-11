@@ -15,9 +15,9 @@ on:
     tags:
       - 'v*.*.*'
   pull_request:
+    # No 'edited': it also fires on merged PRs, whose runs then build main.
     types:
       - opened
-      - edited
       - reopened
       - synchronize
 
