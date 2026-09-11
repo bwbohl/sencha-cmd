@@ -95,9 +95,11 @@ jobs:
         id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302
         with:
+          # Secrets are empty for Dependabot (and fork) PRs; skip the DockerHub
+          # image there instead of producing an invalid "/sencha-cmd" tag.
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            ${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }}
+            name=${{ secrets.BWBOHL_DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }},enable=${{ secrets.BWBOHL_DOCKERHUB_USERNAME != '' }}
           #flavor: |
           #  latest=${{ github.ref == 'refs/heads/main' }}
           tags: |
